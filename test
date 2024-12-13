@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minion Time Clock</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+        
+        body {
+            font-family: 'Cookie', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff200; /* Minion yellow */
+            color: #333333;
+        }
+        .time {
+            font-size: 3rem;
+            margin: 20px; /* Reduced margin for closer spacing */
+        }
+        .input-field, .image-field {
+            margin: 20px 20px; /* Reduced top margin */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .log {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #333333;
+            color: #ffffff;
+        }
+        button:hover {
+            background-color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-field">
+        <img src="https://img1.picmix.com/output/stamp/normal/0/6/1/9/1609160_90b30.gif" alt="Minion" width="200">
+    </div>
+    <div class="time" id="time"></div>
+    <div class="input-field">
+        <label for="employeeCode">กรอกรหัสพนักงาน:</label>
+        <input type="text" id="employeeCode" placeholder="กรอกรหัสพนักงาน">
+    </div>
+    <div class="buttons">
+        <button onclick="logTime()">ลงเวลา</button>
+        <button onclick="goBack()">ย้อนกลับ</button>
+    </div>
+    <div class="log" id="log"></div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('time').textContent = timeString;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function logTime() {
+            const employeeCode = document.getElementById('employeeCode').value;
+            const time = document.getElementById('time').textContent;
+            if (employeeCode) {
+                const logEntry = `${employeeCode}: ${time}`;
+                const logDiv = document.createElement('div');
+                logDiv.textContent = logEntry;
+                document.getElementById('log').appendChild(logDiv);
+                document.getElementById('employeeCode').value = '';
+            } else {
+                alert('กรุณากรอกรหัสพนักงาน');
+            }
+        }
+
+        function goBack() {
+            // Add functionality for the "ย้อนกลับ" button if needed.
+        }
+    </script>
+</body>
+</html>
